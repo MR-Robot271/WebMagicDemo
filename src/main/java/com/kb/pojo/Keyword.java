@@ -4,6 +4,11 @@ import java.util.List;
 
 // 存放搜索的关键字，一般以 品牌+产品类型+型号参数 搜索
 // 过滤数据时，确保pName里有 品牌 和 型号（可能需要用正则表达式分词）
+/**
+* @Description: 存放搜索的关键字，一般以 品牌+产品类型+型号参数 搜索；
+ *              过滤数据时，确保pName里有 品牌 和 型号（可能需要用正则表达式分词）
+* @Date: 2023/10/24
+*/
 public class Keyword {
     // 品牌
     public String brand;

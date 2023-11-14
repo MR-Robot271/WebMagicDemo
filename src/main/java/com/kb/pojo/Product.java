@@ -1,5 +1,9 @@
 package com.kb.pojo;
 
+/**
+* @Description: 存放爬取的商品数据，商品的实体类
+* @Date: 2023/10/24
+*/
 public class Product {
     private String pName;
     private Float pPrice;

@@ -4,6 +4,8 @@ import com.kb.pojo.Keyword;
 import com.kb.pojo.Product;
 import com.kb.utils.CrawlerUtils;
 import com.kb.utils.FileUtils;
+import org.apache.commons.logging.impl.Log4JLogger;
+import org.apache.log4j.Logger;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -65,12 +67,17 @@ public class CrawlerProcessor implements PageProcessor {
         productList = CrawlerUtils.filter(productList,keyword);
 
         // 将结果导入productList中
+        // log4j的实例
+        Logger log=Logger.getLogger(Logger.class);
         if (productList.size() == 0) {
-            page.putField("productList","没有匹配的信息");
+            String result=keyword.toString()+" ：没有匹配的信息";
+            page.putField("productList",result);
+            log.info(result);
         }else {
             page.putField("productList", productList);
             for (Product product : productList) {
-                System.out.println(product);
+//                System.out.println(product);
+                log.info(product.toString());
             }
         }
     }

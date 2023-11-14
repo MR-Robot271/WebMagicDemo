@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+* @Description: 爬虫工具，分词、过滤等
+* @Date: 2023/10/24
+*/
 public class CrawlerUtils {
     /**
     * @Description: 用正则表达式进行分词

@@ -1,4 +1,5 @@
 import com.kb.CrawlerProcessor;
+import com.kb.pipeline.ExcelPipeline;
 import com.kb.pojo.Keyword;
 import com.kb.utils.FileUtils;
 import us.codecraft.webmagic.Spider;
@@ -14,7 +15,7 @@ public class Test {
         String searchName="绿联（UGREEN）六类RJ45水晶头镀金 50248 100个装";
 
         // 获取网页地址
-        String keywordPath="D:\\feishuDownloads\\10.26.xls";
+        String keywordPath="D:\\feishuDownloads\\test1.xlsx";
         List<Keyword> keywords = FileUtils.getKeywords(keywordPath);
         List<String> urls = new ArrayList<>();
         for (Keyword keyword:keywords){
@@ -32,7 +33,8 @@ public class Test {
         Spider.create(new CrawlerProcessor())
                 .addUrl(strings)
 //                .addPipeline(new ConsolePipeline())
-                .thread(2) // 多线程可能会触发反爬虫
+                .addPipeline(new ExcelPipeline())
+                .thread(1) // 多线程可能会触发反爬虫
                 .run();
     }
 }

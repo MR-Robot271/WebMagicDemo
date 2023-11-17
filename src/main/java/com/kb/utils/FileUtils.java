@@ -131,18 +131,16 @@ public class FileUtils {
             String parameters1 = null;
             if (parametersCell != null) {
                 // 再判断具体的数据类型 String Numeric Blank等
-//                CellType cellType = parametersCell.getCellType();
-//                if (cellType == CellType.STRING) {
-//                    parameters1 = parametersCell.getStringCellValue();
-//                }else if (cellType == CellType.NUMERIC) {
-//                    parameters1 = String.valueOf(parametersCell.getNumericCellValue());
-//                }else if (cellType == CellType.BLANK) {
-//                    parameters1 = "";
-//                }else {
-//                    parameters1 = "";
-//                }
-
-                parameters1 = parametersCell.getStringCellValue();
+                CellType cellType = parametersCell.getCellType();
+                if (cellType == CellType.STRING) {
+                    parameters1 = parametersCell.getStringCellValue();
+                }else if (cellType == CellType.NUMERIC) {
+                    parameters1 = String.valueOf(parametersCell.getNumericCellValue());
+                }else if (cellType == CellType.BLANK) {
+                    parameters1 = "";
+                }else {
+                    parameters1 = "";
+                }
             }
 
             // 如果所需数据都没有 就直接进入下一轮循环 防止出现数据全为null的情况

@@ -3,6 +3,7 @@ package com.kb.utils;
 import com.alibaba.excel.EasyExcel;
 import com.kb.pojo.Keyword;
 import com.kb.pojo.ProductExcel;
+import com.kb.pojo.ResultExcel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* @Description: 文件工具类，从文件中提取关键字、文件读写等
+* @Description: 文件工具类，用EasyExcel从文件中提取关键字、文件读写等
 * @Date: 2023/10/25
 */
 public class FileUtils {
@@ -129,6 +130,18 @@ public class FileUtils {
             Cell parametersCell = sheet.getRow(i).getCell(parametersIndex, Row.MissingCellPolicy.RETURN_NULL_AND_BLANK);
             String parameters1 = null;
             if (parametersCell != null) {
+                // 再判断具体的数据类型 String Numeric Blank等
+//                CellType cellType = parametersCell.getCellType();
+//                if (cellType == CellType.STRING) {
+//                    parameters1 = parametersCell.getStringCellValue();
+//                }else if (cellType == CellType.NUMERIC) {
+//                    parameters1 = String.valueOf(parametersCell.getNumericCellValue());
+//                }else if (cellType == CellType.BLANK) {
+//                    parameters1 = "";
+//                }else {
+//                    parameters1 = "";
+//                }
+
                 parameters1 = parametersCell.getStringCellValue();
             }
 
@@ -168,6 +181,39 @@ public class FileUtils {
         // 如果不存在，会自动创建文件，第一次写入需要表头
         else{
             EasyExcel.write(path, ProductExcel.class)
+                    .sheet("爬虫结果")
+                    .doWrite(productExcelList);
+        }
+
+        if (tempFile.exists()){
+            file.delete();
+            tempFile.renameTo(file);
+        }
+    }
+
+    /**
+     * @Description: 使用EasyExcel以追加的方式写入excel文件,此方法更新了excel表结构
+     * @Param: [productExcelList, path, pathOfTemp]
+     * @return: void
+     * @Date: 2023/11/14
+     */
+    public static void resultExcelAppend(List<ResultExcel> productExcelList, String path, String pathOfTemp) {
+        // 以追加的形式写入excel
+        File file = new File(path);
+        File tempFile = new File(pathOfTemp);
+        // 判断文件是否已存在
+        if (file.exists()){
+            // 如果已存在，按照原有格式，不需要表头，追加写入
+            EasyExcel.write(file, ResultExcel.class)
+                    .needHead(false)
+                    .withTemplate(file)
+                    .file(tempFile)
+                    .sheet()
+                    .doWrite(productExcelList);
+        }
+        // 如果不存在，会自动创建文件，第一次写入需要表头
+        else{
+            EasyExcel.write(path, ResultExcel.class)
                     .sheet("爬虫结果")
                     .doWrite(productExcelList);
         }

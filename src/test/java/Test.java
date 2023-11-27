@@ -15,7 +15,7 @@ public class Test {
         String searchName="绿联（UGREEN）六类RJ45水晶头镀金 50248 100个装";
 
         // 获取网页地址
-        String keywordPath="D:\\feishuDownloads\\test3.xlsx";
+        String keywordPath="D:\\feishuDownloads\\test4.xlsx";
         List<Keyword> keywords = FileUtils.getKeywords(keywordPath);
         List<String> urls = new ArrayList<>();
         for (Keyword keyword:keywords){
@@ -28,6 +28,10 @@ public class Test {
         }
         // 需要把List转为String数组 addUrl只能用String数组才能添加多个
         String[] strings = urls.toArray(new String[0]);
+        // 去除strings中的换行符 如果有换行符 放入url会出现错误
+        for (int i = 0; i < strings.length; i++) {
+            strings[i] = strings[i].replaceAll("\n", "");
+        }
 
 
         Spider.create(new CrawlerProcessor())

@@ -222,14 +222,4 @@ public class FileUtils {
         }
     }
 
-    public static void main(String[] args) {
-        String filePath = "D:\\feishuDownloads\\1025文件测试.xlsx";
-        List<Keyword> keywords = getKeywords(filePath);
-        if (keywords.size() > 0) {
-            System.out.println(keywords.size());
-            for (Keyword keyword : keywords) {
-                System.out.println(keyword);
-            }
-        }
-    }
 }

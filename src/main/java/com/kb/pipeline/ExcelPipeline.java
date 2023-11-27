@@ -40,7 +40,7 @@ public class ExcelPipeline implements Pipeline {
 
         String time = localDateTime.format(fileTime);
         String path = "D:\\CrawlerResult\\XiYuCrawlerResult"+time+".xlsx";
-
+//        String path = "D:\\GitProjects\\ComparePricesSpider\\download\\XiYuCrawlerResult"+time+".xlsx";
         // 暂时存放结果的excel文件地址
         String pathOfTemp = "D:\\CrawlerResult\\XiYuCrawlerTemp.xlsx";
 
@@ -55,6 +55,15 @@ public class ExcelPipeline implements Pipeline {
     */
     private static void writeToExcel(ResultItems resultItems, List<ProductExcel> productExcelList, String path, String pathOfTemp) {
         List<Product> productList;
+
+        // 用于判断文件夹是否存在的临时文件
+        File tmpFile = new File(path);
+        // 判断文件夹是否存在
+        if (!tmpFile.getParentFile().exists()){
+            // 不存在则创建文件夹
+            tmpFile.getParentFile().mkdirs();
+        }
+
         // 爬虫有结果时 结果为List
         if(resultItems.get("productList") instanceof List){
             productList = resultItems.get("productList");
